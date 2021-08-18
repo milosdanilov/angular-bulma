@@ -3,5 +3,37 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "angular-bulma": {
+      "projectType": "library",
+      "root": "projects/angular-bulma",
+      "sourceRoot": "projects/angular-bulma/src",
+      "prefix": "bl",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/angular-bulma/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/angular-bulma/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/angular-bulma/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/angular-bulma/src/test.ts",
+            "tsConfig": "projects/angular-bulma/tsconfig.spec.json",
+            "karmaConfig": "projects/angular-bulma/karma.conf.js"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "angular-bulma"
 }
