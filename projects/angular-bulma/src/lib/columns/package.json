@@ -1,0 +1,8 @@
+{
+  "name": "angular-bulma/columns",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "./public_api.ts"
+    }
+  }
+}
