@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve demo",
+    "build:lib": "ng build angular-bulma",
+    "build:app": "ng build demo",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
