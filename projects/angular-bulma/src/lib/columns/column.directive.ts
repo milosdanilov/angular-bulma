@@ -8,8 +8,19 @@ export class ColumnDirective {
   @Input()
   size!: ColumnSize;
 
+  @Input()
+  offset!: ColumnSize;
+
   @HostBinding('class')
   get elementClass() {
-    return ['column', this.size ? `is-${this.size}` : ''].join(' ');
+    return ['column', this.sizeClass, this.offsetClass].join(' ');
+  }
+
+  get sizeClass() {
+    return this.size ? `is-${this.size}` : '';
+  }
+
+  get offsetClass() {
+    return this.offset ? `is-offset-${this.offset}` : '';
   }
 }
