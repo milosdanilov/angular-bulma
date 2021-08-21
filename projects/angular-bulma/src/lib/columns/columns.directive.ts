@@ -9,6 +9,8 @@ import { GapSize } from './columns.iterface';
 export class ColumnsDirective {
   private _multiline!: boolean;
   private _gapless!: boolean;
+  private _vcentered!: boolean;
+  private _centered!: boolean;
 
   @Input()
   set multiline(value: string) {
@@ -18,6 +20,16 @@ export class ColumnsDirective {
   @Input()
   set gapless(value: string) {
     this._gapless = coerceBooleanProperty(value);
+  }
+
+  @Input()
+  set vcentered(value: string) {
+    this._vcentered = coerceBooleanProperty(value);
+  }
+
+  @Input()
+  set centered(value: string) {
+    this._centered = coerceBooleanProperty(value);
   }
 
   @Input()
@@ -44,6 +56,8 @@ export class ColumnsDirective {
       'columns',
       this._multiline ? 'is-multiline' : '',
       this._gapless ? 'is-gapless' : '',
+      this._vcentered ? 'is-vcentered': '',
+      this._centered ? 'is-centered' : '',
       ...this.calculateGaps(),
     ].join(' ');
   }
@@ -56,7 +70,7 @@ export class ColumnsDirective {
       this.gapDesktop ? `is-${this.gapDesktop}-desktop` : '',
       this.gapWidescreen ? `is-${this.gapWidescreen}-widescreen` : '',
       this.gapFullHD ? `is-${this.gapFullHD}-fullhd` : '',
-    ];
+    ].filter(Boolean);
 
     return gaps.length ? [...gaps, 'is-variable'] : [];
   }
