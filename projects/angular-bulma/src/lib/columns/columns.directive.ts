@@ -1,9 +1,63 @@
-import { Directive, HostBinding } from '@angular/core';
+import { Directive, HostBinding, Input } from '@angular/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+
+import { GapSize } from './columns.iterface';
 
 @Directive({
   selector: '[blColumns], bl-columns',
 })
 export class ColumnsDirective {
+  private _multiline!: boolean;
+  private _gapless!: boolean;
+
+  @Input()
+  set multiline(value: string) {
+    this._multiline = coerceBooleanProperty(value);
+  }
+
+  @Input()
+  set gapless(value: string) {
+    this._gapless = coerceBooleanProperty(value);
+  }
+
+  @Input()
+  gap!: GapSize;
+
+  @Input()
+  gapMobile!: GapSize;
+
+  @Input()
+  gapTablet!: GapSize;
+
+  @Input()
+  gapDesktop!: GapSize;
+
+  @Input()
+  gapWidescreen!: GapSize;
+
+  @Input()
+  gapFullHD!: GapSize;
+
   @HostBinding('class')
-  elementClass = 'columns';
+  get elementClass() {
+    return [
+      'columns',
+      this._multiline ? 'is-multiline' : '',
+      this._gapless ? 'is-gapless' : '',
+      ...this.calculateGaps(),
+    ].join(' ');
+  }
+
+  private calculateGaps() {
+    const gaps = [
+      this.gap ? `is-${this.gap}` : '',
+      this.gapMobile ? `is-${this.gapMobile}-mobile` : '',
+      this.gapTablet ? `is-${this.gapTablet}-tablet` : '',
+      this.gapDesktop ? `is-${this.gapDesktop}-desktop` : '',
+      this.gapWidescreen ? `is-${this.gapWidescreen}-widescreen` : '',
+      this.gapFullHD ? `is-${this.gapFullHD}-fullhd` : '',
+    ];
+
+    return gaps.length ? [...gaps, 'is-variable'] : [];
+  }
 }
